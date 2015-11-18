@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/lib/createMemoryHistory';
 import qs from 'qs';
 
+import DevTools from '../common/containers/DevTools';
 import routes from '../common/routes';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
@@ -56,6 +57,7 @@ export default function handleRender(req, res) {
             <Provider store={store}>
               <div>
                 <RoutingContext {...renderProps}/>
+                <DevTools/>
               </div>
             </Provider>
           );

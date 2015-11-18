@@ -8,6 +8,7 @@ import debug from 'debug';
 import createHistory from 'history/lib/createBrowserHistory';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
+import DevTools from '../common/containers/DevTools';
 
 const clientDebug = debug('app:client');
 const rootElement = document.getElementById('app');
@@ -28,6 +29,7 @@ render(
   <Provider store={store}>
     <div>
       <Router routes={routes} history={history}/>
+      <DevTools />
     </div>
   </Provider>,
   rootElement
