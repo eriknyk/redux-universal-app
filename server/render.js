@@ -40,7 +40,6 @@ export default function handleRender(req, res) {
 
     // Create a new Redux store instance
     const store = configureStore(initialState)
-    console.log('- state ->', store.getState());
 
     match(
       {routes: routes, location: req.originalUrl},
@@ -54,8 +53,10 @@ export default function handleRender(req, res) {
           res.status(500);
         } else {
           const component = (
-            <Provider store={store} key="provider">
-              <RoutingContext {...renderProps}/>
+            <Provider store={store}>
+              <div>
+                <RoutingContext {...renderProps}/>
+              </div>
             </Provider>
           );
           const html = renderToString(component);
