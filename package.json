@@ -18,6 +18,7 @@
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
     "babel": "^5.8.21",
+    "debug": "^2.2.0",
     "express": "^4.13.3",
     "history": "^1.13.1",
     "qs": "^4.0.0",

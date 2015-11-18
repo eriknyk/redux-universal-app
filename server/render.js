@@ -1,14 +1,14 @@
-import React from 'react'
-import { renderToString } from 'react-dom/server'
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { Router, RoutingContext, match } from 'react-router';
 import { Provider } from 'react-redux';
 import createHistory from 'history/lib/createMemoryHistory';
 import qs from 'qs';
 
 import routes from '../common/routes';
-import configureStore from '../common/store/configureStore'
-import App from '../common/containers/App'
-import { fetchCounter } from '../common/api/counter'
+import configureStore from '../common/store/configureStore';
+import App from '../common/containers/App';
+import { fetchCounter } from '../common/api/counter';
 
 function renderFullPage(html, initialState) {
   return `
@@ -32,14 +32,14 @@ export default function handleRender(req, res) {
   // Query our mock API asynchronously
   fetchCounter(apiResult => {
     // Read the counter from the request, if provided
-    const params = qs.parse(req.query)
-    const counter = parseInt(params.counter, 10) || apiResult || 0
+    const params = qs.parse(req.query);
+    const counter = parseInt(params.counter, 10) || apiResult || 0;
 
     // Compile an initial state
-    const initialState = { counter }
+    const initialState = { counter };
 
     // Create a new Redux store instance
-    const store = configureStore(initialState)
+    const store = configureStore(initialState);
 
     match(
       {routes: routes, location: req.originalUrl},
