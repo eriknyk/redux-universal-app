@@ -40,13 +40,7 @@ export default function handleRender(req, res) {
 
     // Create a new Redux store instance
     const store = configureStore(initialState)
-
-    // Render the component to a string
-    // const html = renderToString(
-    //   <Provider store={store}>
-    //     <App />
-    //   </Provider>
-    // )
+    console.log('- state ->', store.getState());
 
     match(
       {routes: routes, location: req.originalUrl},
@@ -54,33 +48,21 @@ export default function handleRender(req, res) {
         if (redirectLocation) {
           res.redirect(redirectLocation.pathname + redirectLocation.search);
         } else if (error) {
-          console.error('ROUTER ERROR:', pretty.render(error));
+          console.error('ROUTER ERROR:', error);
           res.status(500);
         } else if (!renderProps) {
           res.status(500);
         } else {
-          try {
-              const component = (
-                <Provider store={store} key="provider">
-                  <RoutingContext {...renderProps}/>
-                </Provider>
-              );
-              const html = renderToString(component);
+          const component = (
+            <Provider store={store} key="provider">
+              <RoutingContext {...renderProps}/>
+            </Provider>
+          );
+          const html = renderToString(component);
 
-              res.send(renderFullPage(html, initialState));
-
-          } catch(err) {
-            console.error('DATA FETCHING ERROR:', err);
-            res.status(500);
-          }
+          res.send(renderFullPage(html, store.getState()));
         }
       }
     )
-
-    // Grab the initial state from our Redux store
-    //const finalState = store.getState()
-
-    // Send the rendered page back to the client
-    //res.send(renderFullPage(html, finalState))
   })
 }

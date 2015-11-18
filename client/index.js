@@ -26,9 +26,14 @@ function createElement (Component, props) {
   return React.createElement(Component, props);
 }
 
+const rootRoute = {
+  component: 'div',
+  childRoutes: [routes]
+}
+
 render(
-  <Provider store={store}>
-    <Router router={routes} history={history}/>
+  <Provider store={store} key="provider">
+    <Router router={rootRoute} history={history}/>
   </Provider>,
   rootElement
 );
