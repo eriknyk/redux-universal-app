@@ -1,6 +1,8 @@
 
 # Isomorphic App Demo
 
+**Adapted from [universal example](https://github.com/rackt/redux/tree/master/examples/universal) from redux official examples**
+
 ### Demo app
 
 - [redux] (https://github.com/rackt/redux) v3.0.0
