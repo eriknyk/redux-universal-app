@@ -1,9 +1,10 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { Router, RoutingContext, match } from 'react-router';
+import { Router, RouterContext, match } from 'react-router';
 import { Provider } from 'react-redux';
 import createHistory from 'history/lib/createMemoryHistory';
 import qs from 'qs';
+import { syncHistory, routeReducer } from 'redux-simple-router';
 
 import routes from '../common/routes';
 import configureStore from '../common/store/configureStore';
@@ -37,9 +38,11 @@ export default function handleRender(req, res) {
 
     // Compile an initial state
     const initialState = { counter };
+    const history = createHistory();
+    const reduxRouterMiddleware = syncHistory(history);
 
     // Create a new Redux store instance
-    const store = configureStore(initialState);
+    const store = configureStore(initialState, reduxRouterMiddleware);
 
     match(
       {routes: routes, location: req.originalUrl},
@@ -54,9 +57,7 @@ export default function handleRender(req, res) {
         } else {
           const component = (
             <Provider store={store}>
-              <div>
-                <RoutingContext {...renderProps}/>
-              </div>
+                <RouterContext {...renderProps}/>
             </Provider>
           );
           const html = renderToString(component);
